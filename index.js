@@ -1,11 +1,15 @@
-const argv = require('./config/yargs');
-const { crearTablaPromise } = require('./helpers/multiplicar');
 const colors = require('colors');
+const { mostrarMenu, pausa } = require('./helpers/mensajes');
 
-const base = argv.b;
-const lista = argv.l;
-const top = argv.t;
+const main = async () => {
+  let option = '';
+  do {
+    option = await mostrarMenu();
+    console.log({ option });
+    if (option !== '0') {
+      await pausa();
+    }
+  } while (option !== '0');
+};
 
-crearTablaPromise(base, lista, top)
-  .then((nameFile) => console.log(`${nameFile} creado`.magenta))
-  .catch((err) => console.log(err));
+main();
