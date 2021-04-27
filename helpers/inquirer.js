@@ -120,6 +120,52 @@ const mostrarListadoChecklist = async (tareas = []) => {
   return ids;
 };
 
+const showMenuClima = async () => {
+  const preguntas = [
+    {
+      type: 'list',
+      name: 'menuClima',
+      message: 'Seleccione una opción',
+      choices: [
+        { value: 1, name: `${'1'.green}. Buscar ciudad` },
+        { value: 2, name: `${'2'.green}. Historial` },
+        { value: 0, name: `${'0'.green}. salir` },
+      ],
+    },
+  ];
+
+  console.log('\n');
+  console.log('Seleccione un opción'.inverse);
+
+  const { menuClima } = await inquirer.prompt(preguntas);
+  return menuClima;
+};
+
+const listarLugares = async (lugares = []) => {
+  const choices = lugares.map((lugar, idx) => ({
+    value: lugar.id,
+    name: `${(idx + 1).toString().green}. ${lugar.nombre}`,
+  }));
+
+  choices.unshift({
+    value: 0,
+    name: `${'0'.green} Cancelar`,
+  });
+
+  const preguntas = [
+    {
+      type: 'list',
+      name: 'lugar',
+      message: 'Seleccione un lugar',
+      choices,
+    },
+  ];
+
+  const { lugar } = await inquirer.prompt(preguntas);
+
+  return lugar;
+};
+
 module.exports = {
   inquirerMenu,
   pausa,
@@ -127,4 +173,6 @@ module.exports = {
   listatoTareasBorrar,
   confirmar,
   mostrarListadoChecklist,
+  showMenuClima,
+  listarLugares,
 };
